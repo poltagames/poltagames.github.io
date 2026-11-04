@@ -121,27 +121,13 @@
   .work-points { margin-top: 24px; max-width: 44em; list-style: none; display: grid; gap: 16px; color: #c8c8c8; }
   .work-points li { position: relative; padding-left: 28px; }
   .work-points li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 14px; height: 1px; background: var(--muted); }
-  /* 動き: 見えたら下からふわっと出る（.reveal に .is-visible が付く）。動きを減らす設定の人には動かさない */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  /* 動き: 見えたら下からふわっと出る（.reveal に .is-visible が付く） */
+  .reveal { opacity: 0; transform: translateY(56px); transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
   .reveal.is-visible { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+  /* 動きを減らす設定の人には、位置は動かさず、ふわっと透けて出るだけにする（動いて酔うのを避ける・色の変化は残す） */
+  @media (prefers-reduced-motion: reduce) { .reveal { transform: none; transition: opacity 0.8s ease; } }
   .work-image { transition: filter 0.3s ease; }
   .work-media a:hover ~ .work-image, .work-image:hover { filter: brightness(1.12); }
-  /* 開いた瞬間の「顔」: 画面いっぱい・後ろにゲームの画像を白黒でうっすら・ゆっくり流れる */
-  .hero { position: relative; min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom: 1px solid var(--line); }
-  .hero-bg { position: absolute; inset: -20% -10%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; opacity: 0.22; filter: grayscale(1); transform: rotate(-8deg); animation: hero-drift 60s linear infinite alternate; }
-  .hero-bg img { width: 100%; aspect-ratio: 460 / 215; object-fit: cover; display: block; }
-  .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, #000 78%); }
-  .hero-inner { position: relative; z-index: 1; padding: 0 20px; animation: hero-in 1.2s ease both; }
-  .hero-icon { width: 96px; height: 96px; border-radius: 50%; margin: 0 auto; display: block; }
-  .hero-title { margin-top: 28px; font-size: clamp(2.6rem, 9vw, 6rem); font-weight: 800; letter-spacing: 0.06em; line-height: 1; }
-  .hero-sub { margin-top: 22px; font-size: 0.75rem; letter-spacing: 0.4em; color: #a0a0a0; }
-  .hero-scroll { position: absolute; z-index: 1; left: 50%; bottom: 28px; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--muted); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .hero-scroll::after { content: ""; width: 1px; height: 40px; background: linear-gradient(var(--text), transparent); animation: hero-cue 2s ease-in-out infinite; }
-  @keyframes hero-drift { from { transform: rotate(-8deg) translateY(0); } to { transform: rotate(-8deg) translateY(-12%); } }
-  @keyframes hero-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-  @keyframes hero-cue { 0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) { .hero-bg, .hero-inner, .hero-scroll::after { animation: none; } }
   .coming-soon { padding: 32px 0 8px; font-size: 1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--muted); }
   /* プロフィール: 左に見出し・右に正方形のアイコン（透過の画像でも、白い線で囲む） */
   .profile { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
@@ -260,16 +246,6 @@
   <!-- ②: 項目を <section id="英字の名前" data-nav="上の帯に出す名前">…</section> で上から順につなげて置く。
        上の帯の項目名は data-nav の文がそのまま（どの言語でも同じ英語で）並び、押すとその項目へスクロールする -->
   <main id="content">
-    <!-- 開いた瞬間の「顔」（仮・2026-11-04 ユーザーの指定）。上の帯の項目には出さない -->
-    <section class="hero" aria-label="POLTA GAMES">
-      <div class="hero-bg" aria-hidden="true"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"><img src="images/platform5.jpg" alt="" loading="lazy"><img src="images/platform4.jpg" alt="" loading="lazy"><img src="images/sanbansen.jpg" alt="" loading="lazy"><img src="images/nibansen.jpg" alt="" loading="lazy"><img src="images/doashime.jpg" alt="" loading="lazy"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"><img src="images/platform5.jpg" alt="" loading="lazy"><img src="images/platform4.jpg" alt="" loading="lazy"><img src="images/sanbansen.jpg" alt="" loading="lazy"><img src="images/nibansen.jpg" alt="" loading="lazy"><img src="images/doashime.jpg" alt="" loading="lazy"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"></div>
-      <div class="hero-inner">
-        <img class="hero-icon" src="images/icon.jpg" alt="" width="96" height="96">
-        <h1 class="hero-title">POLTA GAMES</h1>
-        <p class="hero-sub">INDIE GAME DEVELOPER ・ JAPAN</p>
-      </div>
-      <a class="hero-scroll" href="#profile">SCROLL</a>
-    </section>
     <!-- プロフィール。アイコンは site/images/icon.jpg（丸く切り抜いて見せる・正方形・透過の PNG でよい） -->
     <section id="profile" data-nav="PROFILE">
       <div class="wrap section-body">
@@ -642,7 +618,7 @@
       for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-visible"); revealer.unobserve(e.target); }
     }, { rootMargin: "0px 0px -10% 0px" });
     revealTargets.forEach(el => { el.classList.add("reveal"); revealer.observe(el); });
-    document.querySelectorAll(".works .work").forEach((el, i) => { if (i % 2) el.style.transitionDelay = "0.12s"; });
+    document.querySelectorAll(".works .work").forEach((el, i) => { if (i % 2) el.style.transitionDelay = "0.2s"; });
   }
 
   // 上の帯の高さ（スマホで項目名が 2 行目に回ると変わる）を、② の高さと移った先の位置に使う
