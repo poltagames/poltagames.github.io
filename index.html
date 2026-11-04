@@ -97,6 +97,8 @@
   .contact { padding-top: 96px; padding-bottom: 80px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
   /* 項目の見出し（② の各項目と③のお問い合わせで同じ大きさ） */
   .section-title { font-size: clamp(1.6rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: 0.04em; line-height: 1.3; }
+  /* 試し: 項目の名前を白い四角で囲む（2026-11-04 ユーザーの指定「ためしに白い四角で囲ってみて」） */
+  .section-title { display: inline-block; border: 1px solid var(--text); padding: 0.3em 0.8em 0.35em; }
   .section-body { padding-top: 96px; padding-bottom: 96px; }
   /* 項目の中の小見出し（ゲームのオリジナル / 開発協力）。言語ごとに訳す。英字などは大文字で見せる（日本語・中国語・韓国語には効かない） */
   .group { margin-top: 64px; }
@@ -124,7 +126,7 @@
   .work-role { margin-top: 4px; color: #c8c8c8; list-style: none; display: flex; flex-wrap: wrap; }
   .work-role li:not(:last-child)::after { content: "／"; margin: 0 0.6em; color: var(--muted); }
   .work-period { margin-top: 4px; color: #c8c8c8; }
-  .work-links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
+  .work-links { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
   .work-links a {
     display: inline-block; padding: 10px 22px; border: 1px solid var(--text);
     font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-decoration: none;
@@ -228,7 +230,13 @@
           <div class="works">
             <!-- 新しい作品ほど上に並べる。仮のカード（試しに 8 枚並べている）は中身が届いたものから本物にする。画像は site/images/ に置いて <img class="work-image" src="images/…" alt="タイトル"> にする -->
             <article class="work">
-              <div class="work-image placeholder">GAME IMAGE</div>
+              <div class="work-media">
+                <div class="work-image placeholder">GAME IMAGE</div>
+                <ul class="work-links">
+                  <li><a href="#">Steam</a></li>
+                  <li><a href="#">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title" data-i18n="phTitle">Game Title</h4>
                 <p class="work-text" data-i18n="phText">A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.</p>
@@ -236,15 +244,17 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period">—</p>
-                <ul class="work-links">
-                  <li><a href="#">Steam</a></li>
-                  <li><a href="#">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2025 SHINISE GAMES</p>
               </div>
             </article>
             <article class="work">
-              <div class="work-image placeholder">GAME IMAGE</div>
+              <div class="work-media">
+                <div class="work-image placeholder">GAME IMAGE</div>
+                <ul class="work-links">
+                  <li><a href="#">Steam</a></li>
+                  <li><a href="#">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title" data-i18n="phTitle">Game Title</h4>
                 <p class="work-text" data-i18n="phText">A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.</p>
@@ -252,15 +262,17 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period">—</p>
-                <ul class="work-links">
-                  <li><a href="#">Steam</a></li>
-                  <li><a href="#">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2025 SHINISE GAMES</p>
               </div>
             </article>
             <article class="work">
-              <div class="work-image placeholder">GAME IMAGE</div>
+              <div class="work-media">
+                <div class="work-image placeholder">GAME IMAGE</div>
+                <ul class="work-links">
+                  <li><a href="#">Steam</a></li>
+                  <li><a href="#">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title" data-i18n="phTitle">Game Title</h4>
                 <p class="work-text" data-i18n="phText">A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.</p>
@@ -268,16 +280,18 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period">—</p>
-                <ul class="work-links">
-                  <li><a href="#">Steam</a></li>
-                  <li><a href="#">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2025 SHINISE GAMES</p>
               </div>
             </article>
             <article class="work">
               <!-- 5 作目（2025） -->
-              <img class="work-image" src="images/platform5.jpg" alt="5番線おじさん救出編 Platform 5 Dungeons" width="460" height="215" loading="lazy">
+              <div class="work-media">
+                <img class="work-image" src="images/platform5.jpg" alt="5番線おじさん救出編 Platform 5 Dungeons" width="460" height="215" loading="lazy">
+                <ul class="work-links">
+                  <li><a href="https://store.steampowered.com/app/3503680/" target="_blank" rel="noopener">Steam</a></li>
+                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000095434" target="_blank" rel="noopener">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title">5番線おじさん救出編 Platform 5 Dungeons</h4>
                 <p class="work-text" data-i18n="descPlatform5">The first story-driven horror game in the Bansen series. As a rescuer, search the maze-like Chijuku Station, overrun by anomalies, for the Ojisan left behind. Pick up trash to use as weapons and find him somewhere among six stations.</p>
@@ -285,16 +299,18 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period" data-i18n="period2Months">2 months</p>
-                <ul class="work-links">
-                  <li><a href="https://store.steampowered.com/app/3503680/" target="_blank" rel="noopener">Steam</a></li>
-                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000095434" target="_blank" rel="noopener">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2025 MFC STUDIO</p>
               </div>
             </article>
             <article class="work">
               <!-- 4 作目（2024） -->
-              <img class="work-image" src="images/platform4.jpg" alt="4番線 | Platform 4" width="460" height="215" loading="lazy">
+              <div class="work-media">
+                <img class="work-image" src="images/platform4.jpg" alt="4番線 | Platform 4" width="460" height="215" loading="lazy">
+                <ul class="work-links">
+                  <li><a href="https://store.steampowered.com/app/3311520/" target="_blank" rel="noopener">Steam</a></li>
+                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000090980" target="_blank" rel="noopener">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title">4番線 | Platform 4</h4>
                 <p class="work-text" data-i18n="descPlatform4">Head for a distant airport from Platform 4 of a repeating night-time station. Spot an anomaly and board the rear car to turn back; see nothing strange and move on to the front car. Break out of the seven looping stations.</p>
@@ -302,16 +318,18 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period" data-i18n="period2Months">2 months</p>
-                <ul class="work-links">
-                  <li><a href="https://store.steampowered.com/app/3311520/" target="_blank" rel="noopener">Steam</a></li>
-                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000090980" target="_blank" rel="noopener">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
             <article class="work">
               <!-- 3 作目（2024） -->
-              <img class="work-image" src="images/sanbansen.jpg" alt="3番線 | Sanbansen" width="460" height="215" loading="lazy">
+              <div class="work-media">
+                <img class="work-image" src="images/sanbansen.jpg" alt="3番線 | Sanbansen" width="460" height="215" loading="lazy">
+                <ul class="work-links">
+                  <li><a href="https://store.steampowered.com/app/2899580/" target="_blank" rel="noopener">Steam</a></li>
+                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000082956" target="_blank" rel="noopener">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title">3番線 | Sanbansen</h4>
                 <p class="work-text" data-i18n="descSanbansen">The sequel to Nibansen: escape from Line 3 of an endlessly repeating station. Spot an anomaly and head back to the opposite elevator; see nothing strange and keep going. Figure out the rules and make your way to Exit 10.</p>
@@ -319,16 +337,18 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period" data-i18n="period3Months">3 months</p>
-                <ul class="work-links">
-                  <li><a href="https://store.steampowered.com/app/2899580/" target="_blank" rel="noopener">Steam</a></li>
-                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000082956" target="_blank" rel="noopener">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
             <article class="work">
               <!-- 2 作目（2024） -->
-              <img class="work-image" src="images/nibansen.jpg" alt="2番線 | Nibansen" width="460" height="215" loading="lazy">
+              <div class="work-media">
+                <img class="work-image" src="images/nibansen.jpg" alt="2番線 | Nibansen" width="460" height="215" loading="lazy">
+                <ul class="work-links">
+                  <li><a href="https://store.steampowered.com/app/2699510/" target="_blank" rel="noopener">Steam</a></li>
+                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000078020" target="_blank" rel="noopener">Nintendo Switch</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title">2番線 | Nibansen</h4>
                 <p class="work-text" data-i18n="descNibansen">A short escape game set on Line 2 of an endlessly looping subway station. Spot an anomaly and turn back; see nothing strange and keep going. Figure out the rules and make your way to Exit C7.</p>
@@ -336,16 +356,17 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period" data-i18n="period2Weeks">2 weeks</p>
-                <ul class="work-links">
-                  <li><a href="https://store.steampowered.com/app/2699510/" target="_blank" rel="noopener">Steam</a></li>
-                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000078020" target="_blank" rel="noopener">Nintendo Switch</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
             <article class="work">
               <!-- 1 作目（2023）。Switch 版は無い -->
-              <img class="work-image" src="images/doashime.jpg" data-src-ja="images/doashime_ja.jpg" alt="DOASHIME-ドアを閉めるぞ-" width="460" height="215" loading="lazy">
+              <div class="work-media">
+                <img class="work-image" src="images/doashime.jpg" data-src-ja="images/doashime_ja.jpg" alt="DOASHIME-ドアを閉めるぞ-" width="460" height="215" loading="lazy">
+                <ul class="work-links">
+                  <li><a href="https://store.steampowered.com/app/2657260/" target="_blank" rel="noopener">Steam</a></li>
+                </ul>
+              </div>
               <div>
                 <h4 class="work-title">DOASHIME-ドアを閉めるぞ-</h4>
                 <p class="work-text" data-i18n="descDoashime">Pack animals into three trains, build chains and chase a high score. Animals can't board a train with station staff on it, so slip past them and dash for an open door.</p>
@@ -353,9 +374,6 @@
                 <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-label" data-i18n="period">Development Period</p>
                 <p class="work-period" data-i18n="period1Month">1 month</p>
-                <ul class="work-links">
-                  <li><a href="https://store.steampowered.com/app/2657260/" target="_blank" rel="noopener">Steam</a></li>
-                </ul>
                 <p class="work-copy">&copy; 2023 MFC STUDIO</p>
               </div>
             </article>
