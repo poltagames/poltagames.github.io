@@ -191,23 +191,23 @@
     </div>
   </nav>
 
-  <!-- ②: 項目を <section id="英字の名前" data-nav="訳のキー">…</section> で上から順につなげて置く。
-       上の帯の項目名は data-nav のキーの文（TEXTS）で自動で並び、押すとその項目へスクロールする -->
+  <!-- ②: 項目を <section id="英字の名前" data-nav="上の帯に出す名前">…</section> で上から順につなげて置く。
+       上の帯の項目名は data-nav の文がそのまま（どの言語でも同じ英語で）並び、押すとその項目へスクロールする -->
   <main id="content">
     <!-- プロフィール。アイコンは site/images/ に置いて <img class="profile-icon" src="images/…" alt="POLTA GAMES"> にする（正方形・透過の PNG でよい） -->
-    <section id="profile" data-nav="profile">
+    <section id="profile" data-nav="PROFILE">
       <div class="wrap section-body profile">
         <div>
-          <h2 class="section-title" data-i18n="profile">Profile</h2>
+          <h2 class="section-title">PROFILE</h2>
           <p class="profile-text" data-i18n="phProfile">A short introduction goes here: who we are, what kind of games we make, and what we have worked on.</p>
         </div>
         <div class="profile-icon placeholder">ICON</div>
       </div>
     </section>
     <!-- ゲーム: 自作のゲームと開発に協力したゲーム -->
-    <section id="games" data-nav="games">
+    <section id="games" data-nav="GAMES">
       <div class="wrap section-body">
-        <h2 class="section-title" data-i18n="games">Games</h2>
+        <h2 class="section-title">GAMES</h2>
         <!-- POLTA GAMES のゲーム -->
         <div class="group" id="originals">
           <h3 class="group-title">ORIGINALS</h3>
@@ -337,9 +337,9 @@
   </main>
 
   <footer>
-    <div class="wrap contact" id="contact" data-nav="contact">
+    <div class="wrap contact" id="contact" data-nav="CONTACT">
       <div>
-        <h2 class="section-title" data-i18n="contact">Contact</h2>
+        <h2 class="section-title">CONTACT</h2>
       </div>
       <form id="contactForm">
         <div class="field">
@@ -383,16 +383,16 @@
   const STORAGE_KEY = "poltagames-lang";
   // 言語ごとの文（data-i18n="キー" を付けた要素の文を差し替える。訳の無いキーは英語、英語にも無ければ元の文のまま）
   const TEXTS = {
-    en: { phProfile: "A short introduction goes here: who we are, what kind of games we make, and what we have worked on.", profile: "Profile", pageTitle: "Polta Games", pageDesc: "Official website of POLTA GAMES, an independent game development studio.", phTitle: "Game Title", phText: "A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.", phRole: "What we contributed goes here.", contribution: "Our Contribution", games: "Games", contact: "Contact", name: "Name", email: "Email", message: "Message", send: "Review in Mail App", subject: "Inquiry from the POLTA GAMES website", byMail: "Contact us by email", copied: "Copied" },
-    ja: { phProfile: "プロフィールの説明がここに入ります。どんな人・スタジオなのか、どんなゲームを作っているのか、これまでの活動などを書きます。", profile: "プロフィール", pageTitle: "Polta Games｜ポルタゲームズ", pageDesc: "個人ゲーム開発スタジオ「ポルタゲームズ」の公式サイトです。", phTitle: "ゲームタイトル", phText: "ゲーム概要がここに入ります。どんなゲームなのか、遊びどころを 2〜3 行で書きます。", phRole: "協力した部分がここに入ります。", contribution: "協力内容", games: "ゲーム", contact: "お問い合わせ", name: "お名前", email: "メールアドレス", message: "お問い合わせ内容", send: "メールアプリで確認", subject: "POLTA GAMES サイトからのお問い合わせ", byMail: "メールアドレスから問い合わせる", copied: "コピーしました" },
-    "zh-CN": { phProfile: "这里是简介。介绍我们是谁、制作什么样的游戏，以及至今的活动经历。", profile: "简介", pageTitle: "Polta Games", pageDesc: "独立游戏开发工作室 POLTA GAMES 的官方网站。", phTitle: "游戏标题", phText: "这里是游戏简介。用两三行介绍这是一款怎样的游戏，以及它的乐趣所在。", phRole: "这里填写我们参与的部分。", contribution: "合作内容", games: "游戏", contact: "联系我们", name: "姓名", email: "电子邮箱", message: "咨询内容", send: "在邮件应用中确认", subject: "来自 POLTA GAMES 网站的咨询", byMail: "通过电子邮件联系", copied: "已复制" },
-    "zh-TW": { phProfile: "這裡是簡介。介紹我們是誰、製作什麼樣的遊戲，以及至今的活動經歷。", profile: "簡介", pageTitle: "Polta Games", pageDesc: "獨立遊戲開發工作室 POLTA GAMES 的官方網站。", phTitle: "遊戲標題", phText: "這裡是遊戲簡介。用兩三行介紹這是一款什麼樣的遊戲，以及它的樂趣所在。", phRole: "這裡填寫我們參與的部分。", contribution: "合作內容", games: "遊戲", contact: "聯絡我們", name: "姓名", email: "電子郵件", message: "詢問內容", send: "在郵件應用程式中確認", subject: "來自 POLTA GAMES 網站的詢問", byMail: "透過電子郵件聯絡", copied: "已複製" },
-    ko: { phProfile: "여기에 프로필 소개가 들어갑니다. 어떤 사람·스튜디오인지, 어떤 게임을 만들고 있는지, 지금까지의 활동 등을 적습니다.", profile: "프로필", pageTitle: "Polta Games", pageDesc: "인디 게임 개발 스튜디오 POLTA GAMES의 공식 사이트입니다.", phTitle: "게임 타이틀", phText: "여기에 게임 개요가 들어갑니다. 어떤 게임인지, 어떤 점이 재미있는지 2~3줄로 적습니다.", phRole: "여기에 협력한 부분이 들어갑니다.", contribution: "협력 내용", games: "게임", contact: "문의", name: "이름", email: "이메일 주소", message: "문의 내용", send: "메일 앱에서 확인", subject: "POLTA GAMES 웹사이트 문의", byMail: "이메일로 문의하기", copied: "복사했습니다" },
-    es: { phProfile: "Aquí va una breve presentación: quiénes somos, qué tipo de juegos hacemos y en qué hemos trabajado.", profile: "Perfil", pageTitle: "Polta Games", pageDesc: "Sitio web oficial de POLTA GAMES, estudio independiente de desarrollo de videojuegos.", phTitle: "Título del juego", phText: "Aquí va la descripción del juego: qué tipo de juego es y qué lo hace divertido, en dos o tres líneas.", phRole: "Aquí va nuestra parte en el desarrollo.", contribution: "Nuestra contribución", games: "Juegos", contact: "Contacto", name: "Nombre", email: "Correo electrónico", message: "Mensaje", send: "Revisar en la app de correo", subject: "Consulta desde el sitio web de POLTA GAMES", byMail: "Contactar por correo electrónico", copied: "Copiado" },
-    fr: { phProfile: "Ici, une courte présentation : qui nous sommes, quels jeux nous créons et nos réalisations passées.", profile: "Profil", pageTitle: "Polta Games", pageDesc: "Site officiel de POLTA GAMES, studio indépendant de développement de jeux vidéo.", phTitle: "Titre du jeu", phText: "Ici, la présentation du jeu : de quel type de jeu il s’agit et ce qui le rend amusant, en deux ou trois lignes.", phRole: "Ici, notre contribution au projet.", contribution: "Notre contribution", games: "Jeux", contact: "Contact", name: "Nom", email: "Adresse e-mail", message: "Message", send: "Vérifier dans l’app de messagerie", subject: "Demande depuis le site de POLTA GAMES", byMail: "Nous contacter par e-mail", copied: "Copié" },
-    de: { phProfile: "Hier steht eine kurze Vorstellung: wer wir sind, welche Spiele wir machen und woran wir bisher gearbeitet haben.", profile: "Profil", pageTitle: "Polta Games", pageDesc: "Offizielle Website von POLTA GAMES, einem unabhängigen Spieleentwicklungsstudio.", phTitle: "Spieltitel", phText: "Hier steht eine kurze Beschreibung des Spiels: was für ein Spiel es ist und was es besonders macht, in zwei bis drei Zeilen.", phRole: "Hier steht unser Beitrag zum Projekt.", contribution: "Unser Beitrag", games: "Spiele", contact: "Kontakt", name: "Name", email: "E-Mail-Adresse", message: "Nachricht", send: "In der Mail-App prüfen", subject: "Anfrage über die Website von POLTA GAMES", byMail: "Per E-Mail kontaktieren", copied: "Kopiert" },
-    "pt-BR": { phProfile: "Aqui vai uma breve apresentação: quem somos, que tipo de jogos fazemos e em que já trabalhamos.", profile: "Perfil", pageTitle: "Polta Games", pageDesc: "Site oficial da POLTA GAMES, estúdio independente de desenvolvimento de jogos.", phTitle: "Título do jogo", phText: "Aqui vai a descrição do jogo: que tipo de jogo é e o que o torna divertido, em duas ou três linhas.", phRole: "Aqui vai a nossa parte no desenvolvimento.", contribution: "Nossa contribuição", games: "Jogos", contact: "Contato", name: "Nome", email: "E-mail", message: "Mensagem", send: "Revisar no app de e-mail", subject: "Contato pelo site da POLTA GAMES", byMail: "Fale conosco por e-mail", copied: "Copiado" },
-    ru: { phProfile: "Здесь будет краткое описание: кто мы, какие игры создаём и над чем работали.", profile: "Профиль", pageTitle: "Polta Games", pageDesc: "Официальный сайт POLTA GAMES — независимой студии разработки игр.", phTitle: "Название игры", phText: "Здесь будет описание игры: что это за игра и чем она интересна, в двух-трёх строках.", phRole: "Здесь будет описание нашего участия.", contribution: "Наш вклад", games: "Игры", contact: "Связаться с нами", name: "Имя", email: "Электронная почта", message: "Сообщение", send: "Проверить в почтовом приложении", subject: "Обращение с сайта POLTA GAMES", byMail: "Написать нам на электронную почту", copied: "Скопировано" },
+    en: { phProfile: "A short introduction goes here: who we are, what kind of games we make, and what we have worked on.", pageTitle: "Polta Games", pageDesc: "Official website of POLTA GAMES, an independent game development studio.", phTitle: "Game Title", phText: "A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.", phRole: "What we contributed goes here.", contribution: "Our Contribution", name: "Name", email: "Email", message: "Message", send: "Review in Mail App", subject: "Inquiry from the POLTA GAMES website", byMail: "Contact us by email", copied: "Copied" },
+    ja: { phProfile: "プロフィールの説明がここに入ります。どんな人・スタジオなのか、どんなゲームを作っているのか、これまでの活動などを書きます。", pageTitle: "Polta Games｜ポルタゲームズ", pageDesc: "個人ゲーム開発スタジオ「ポルタゲームズ」の公式サイトです。", phTitle: "ゲームタイトル", phText: "ゲーム概要がここに入ります。どんなゲームなのか、遊びどころを 2〜3 行で書きます。", phRole: "協力した部分がここに入ります。", contribution: "協力内容", name: "お名前", email: "メールアドレス", message: "お問い合わせ内容", send: "メールアプリで確認", subject: "POLTA GAMES サイトからのお問い合わせ", byMail: "メールアドレスから問い合わせる", copied: "コピーしました" },
+    "zh-CN": { phProfile: "这里是简介。介绍我们是谁、制作什么样的游戏，以及至今的活动经历。", pageTitle: "Polta Games", pageDesc: "独立游戏开发工作室 POLTA GAMES 的官方网站。", phTitle: "游戏标题", phText: "这里是游戏简介。用两三行介绍这是一款怎样的游戏，以及它的乐趣所在。", phRole: "这里填写我们参与的部分。", contribution: "合作内容", name: "姓名", email: "电子邮箱", message: "咨询内容", send: "在邮件应用中确认", subject: "来自 POLTA GAMES 网站的咨询", byMail: "通过电子邮件联系", copied: "已复制" },
+    "zh-TW": { phProfile: "這裡是簡介。介紹我們是誰、製作什麼樣的遊戲，以及至今的活動經歷。", pageTitle: "Polta Games", pageDesc: "獨立遊戲開發工作室 POLTA GAMES 的官方網站。", phTitle: "遊戲標題", phText: "這裡是遊戲簡介。用兩三行介紹這是一款什麼樣的遊戲，以及它的樂趣所在。", phRole: "這裡填寫我們參與的部分。", contribution: "合作內容", name: "姓名", email: "電子郵件", message: "詢問內容", send: "在郵件應用程式中確認", subject: "來自 POLTA GAMES 網站的詢問", byMail: "透過電子郵件聯絡", copied: "已複製" },
+    ko: { phProfile: "여기에 프로필 소개가 들어갑니다. 어떤 사람·스튜디오인지, 어떤 게임을 만들고 있는지, 지금까지의 활동 등을 적습니다.", pageTitle: "Polta Games", pageDesc: "인디 게임 개발 스튜디오 POLTA GAMES의 공식 사이트입니다.", phTitle: "게임 타이틀", phText: "여기에 게임 개요가 들어갑니다. 어떤 게임인지, 어떤 점이 재미있는지 2~3줄로 적습니다.", phRole: "여기에 협력한 부분이 들어갑니다.", contribution: "협력 내용", name: "이름", email: "이메일 주소", message: "문의 내용", send: "메일 앱에서 확인", subject: "POLTA GAMES 웹사이트 문의", byMail: "이메일로 문의하기", copied: "복사했습니다" },
+    es: { phProfile: "Aquí va una breve presentación: quiénes somos, qué tipo de juegos hacemos y en qué hemos trabajado.", pageTitle: "Polta Games", pageDesc: "Sitio web oficial de POLTA GAMES, estudio independiente de desarrollo de videojuegos.", phTitle: "Título del juego", phText: "Aquí va la descripción del juego: qué tipo de juego es y qué lo hace divertido, en dos o tres líneas.", phRole: "Aquí va nuestra parte en el desarrollo.", contribution: "Nuestra contribución", name: "Nombre", email: "Correo electrónico", message: "Mensaje", send: "Revisar en la app de correo", subject: "Consulta desde el sitio web de POLTA GAMES", byMail: "Contactar por correo electrónico", copied: "Copiado" },
+    fr: { phProfile: "Ici, une courte présentation : qui nous sommes, quels jeux nous créons et nos réalisations passées.", pageTitle: "Polta Games", pageDesc: "Site officiel de POLTA GAMES, studio indépendant de développement de jeux vidéo.", phTitle: "Titre du jeu", phText: "Ici, la présentation du jeu : de quel type de jeu il s’agit et ce qui le rend amusant, en deux ou trois lignes.", phRole: "Ici, notre contribution au projet.", contribution: "Notre contribution", name: "Nom", email: "Adresse e-mail", message: "Message", send: "Vérifier dans l’app de messagerie", subject: "Demande depuis le site de POLTA GAMES", byMail: "Nous contacter par e-mail", copied: "Copié" },
+    de: { phProfile: "Hier steht eine kurze Vorstellung: wer wir sind, welche Spiele wir machen und woran wir bisher gearbeitet haben.", pageTitle: "Polta Games", pageDesc: "Offizielle Website von POLTA GAMES, einem unabhängigen Spieleentwicklungsstudio.", phTitle: "Spieltitel", phText: "Hier steht eine kurze Beschreibung des Spiels: was für ein Spiel es ist und was es besonders macht, in zwei bis drei Zeilen.", phRole: "Hier steht unser Beitrag zum Projekt.", contribution: "Unser Beitrag", name: "Name", email: "E-Mail-Adresse", message: "Nachricht", send: "In der Mail-App prüfen", subject: "Anfrage über die Website von POLTA GAMES", byMail: "Per E-Mail kontaktieren", copied: "Kopiert" },
+    "pt-BR": { phProfile: "Aqui vai uma breve apresentação: quem somos, que tipo de jogos fazemos e em que já trabalhamos.", pageTitle: "Polta Games", pageDesc: "Site oficial da POLTA GAMES, estúdio independente de desenvolvimento de jogos.", phTitle: "Título do jogo", phText: "Aqui vai a descrição do jogo: que tipo de jogo é e o que o torna divertido, em duas ou três linhas.", phRole: "Aqui vai a nossa parte no desenvolvimento.", contribution: "Nossa contribuição", name: "Nome", email: "E-mail", message: "Mensagem", send: "Revisar no app de e-mail", subject: "Contato pelo site da POLTA GAMES", byMail: "Fale conosco por e-mail", copied: "Copiado" },
+    ru: { phProfile: "Здесь будет краткое описание: кто мы, какие игры создаём и над чем работали.", pageTitle: "Polta Games", pageDesc: "Официальный сайт POLTA GAMES — независимой студии разработки игр.", phTitle: "Название игры", phText: "Здесь будет описание игры: что это за игра и чем она интересна, в двух-трёх строках.", phRole: "Здесь будет описание нашего участия.", contribution: "Наш вклад", name: "Имя", email: "Электронная почта", message: "Сообщение", send: "Проверить в почтовом приложении", subject: "Обращение с сайта POLTA GAMES", byMail: "Написать нам на электронную почту", copied: "Скопировано" },
   };
   const text = key => (TEXTS[document.documentElement.lang] || {})[key] ?? TEXTS[DEFAULT_LANG][key];
 
@@ -470,7 +470,6 @@
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.href = "#" + section.id;
-    a.dataset.i18n = section.dataset.nav;
     a.textContent = section.dataset.nav;
     li.append(a);
     navLinks.append(li);
