@@ -1,140 +1,408 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Polta Games｜ポルタゲームズ</title>
 <meta name="description" content="個人ゲーム開発スタジオ「ポルタゲームズ」の公式サイトです。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #14121f;
-    --card: #1f1c30;
-    --text: #f2eee6;
-    --muted: #a39fb8;
-    --accent: #ffb347;
-    --accent2: #7ad3c0;
+    --bg: #000;
+    --text: #fff;
+    --muted: #8a8a8a;
+    --line: #262626;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    line-height: 1.8;
+    font-family: "Inter", "Noto Sans JP", sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding-left: max(32px, env(safe-area-inset-left)); padding-right: max(32px, env(safe-area-inset-right)); }
 
-  header { padding: 72px 0 56px; text-align: center; }
-  .logo {
-    font-family: "DotGothic16", monospace;
-    font-size: clamp(2.4rem, 9vw, 4rem);
-    letter-spacing: 0.06em;
-    color: var(--accent);
-    text-shadow: 4px 4px 0 #5b3a8c;
+  /* 上のナビ */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
   }
-  .logo-ja { font-family: "DotGothic16", monospace; color: var(--muted); margin-top: 4px; }
-  .tagline { margin-top: 20px; }
+  nav .wrap { display: flex; align-items: center; gap: 32px; min-height: 64px; }
+  /* 項目名（② の各項目へ移る）。② の section から自動で並ぶ */
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links:empty { display: none; }
+  .nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-decoration: none; color: var(--muted); white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.is-current { color: var(--text); }
+  .nav-logo { font-weight: 800; letter-spacing: 0.2em; font-size: 0.9rem; text-decoration: none; margin-right: auto; }
 
-  section { padding: 40px 0; }
-  h2 {
-    font-family: "DotGothic16", monospace;
-    font-size: 1.5rem;
-    color: var(--accent2);
-    margin-bottom: 20px;
+  /* 言語の切り替え（右上） */
+  .lang { position: relative; }
+  .lang-button {
+    background: none; border: 1px solid var(--line); color: var(--text);
+    font: inherit; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.15em;
+    padding: 6px 14px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: border-color 0.2s;
   }
-  h2::before { content: "▶ "; color: var(--accent); }
+  .lang-button:hover, .lang-button[aria-expanded="true"] { border-color: var(--text); }
+  .lang-button::after { content: ""; width: 5px; height: 5px; border-right: 1px solid; border-bottom: 1px solid; transform: translateY(-2px) rotate(45deg); transition: transform 0.2s; }
+  .lang-button[aria-expanded="true"]::after { transform: translateY(1px) rotate(-135deg); }
+  .lang-menu {
+    position: absolute; right: 0; top: calc(100% + 8px);
+    min-width: 200px; list-style: none;
+    max-height: calc(100vh - 80px); max-height: calc(100svh - 80px); overflow-y: auto;
+    background: var(--bg); border: 1px solid var(--text);
+    padding: 6px 0;
+  }
+  .lang-menu[hidden] { display: none; }
+  .lang-menu button {
+    width: 100%; background: none; border: 0; color: var(--muted);
+    font: inherit; font-size: 0.85rem; text-align: left;
+    padding: 8px 18px; cursor: pointer;
+    display: flex; justify-content: space-between; gap: 16px;
+  }
+  .lang-menu button:hover, .lang-menu button:focus-visible { color: var(--text); background: #111; outline: none; }
+  .lang-menu button[aria-checked="true"] { color: var(--text); }
+  .lang-menu button[aria-checked="true"]::after { content: "✓"; }
 
-  .card {
-    background: var(--card);
-    border: 3px solid #3a3555;
-    border-radius: 6px;
-    padding: 24px;
-  }
-  .card h3 { font-size: 1.25rem; margin-bottom: 8px; }
-  .badge {
-    display: inline-block;
-    font-family: "DotGothic16", monospace;
-    font-size: 0.85rem;
-    background: var(--accent);
-    color: var(--bg);
-    padding: 2px 10px;
-    border-radius: 3px;
-    margin-bottom: 12px;
-  }
-  .card p { color: var(--muted); }
+  /* 2: 中身（最初の画面いっぱい。3 は最後までスクロールすると見える） */
+  :root { --nav-h: 65px; }
+  main { flex: 1; min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); }
+  main > section { scroll-margin-top: var(--nav-h); border-bottom: 1px solid var(--line); }
+  main > section:last-child { border-bottom: 0; }
 
-  .btn {
-    display: inline-block;
-    margin-top: 18px;
-    padding: 10px 22px;
-    background: var(--accent);
-    color: var(--bg);
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 4px;
-    box-shadow: 4px 4px 0 #5b3a8c;
+  /* 3: 一番下（どのページでも同じ） */
+  footer { border-top: 1px solid var(--line); }
+  .contact { padding-top: 96px; padding-bottom: 80px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+  /* 項目の見出し（② の各項目と③のお問い合わせで同じ大きさ） */
+  .section-title { font-size: clamp(1.6rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: 0.04em; line-height: 1.3; }
+  .section-body { padding-top: 96px; padding-bottom: 96px; }
+  /* 項目の中の小見出し（ゲームの ORIGINALS / COLLABORATIONS）。英字のままで、どの言語でも訳さない */
+  .group { margin-top: 64px; }
+  /* 小見出しの上に細い灰色の線を引いて区切る */
+  .group-title {
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.3em;
+    padding-top: 20px; border-top: 1px solid var(--line);
   }
-  .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #5b3a8c; }
-
-  .links { list-style: none; display: grid; gap: 12px; }
-  .links a {
-    display: block;
-    background: var(--card);
-    border: 3px solid #3a3555;
-    border-radius: 6px;
-    padding: 14px 18px;
-    color: var(--text);
-    text-decoration: none;
+  .coming-soon { padding: 32px 0 8px; font-size: 1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--muted); }
+  /* ゲーム 1 本ぶん: 左に画像・右に文（スマホは縦に並ぶ） */
+  .works { display: grid; gap: 64px; padding-top: 40px; }
+  .work { display: grid; grid-template-columns: 5fr 6fr; gap: 40px; align-items: start; }
+  .work-image { width: 100%; aspect-ratio: 460 / 215; object-fit: cover; display: block; background: #111; border: 1px solid var(--line); }
+  .work-image.placeholder { display: flex; align-items: center; justify-content: center; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); }
+  .work-title { font-size: 1.5rem; font-weight: 700; line-height: 1.4; }
+  .work-meta { margin-top: 6px; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--muted); }
+  .work-text { margin-top: 20px; color: #c8c8c8; }
+  .work-label { margin-top: 24px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; color: var(--muted); }
+  .work-role { margin-top: 4px; color: #c8c8c8; }
+  .work-links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
+  .work-links a {
+    display: inline-block; padding: 10px 22px; border: 1px solid var(--text);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-decoration: none;
+    transition: background 0.2s, color 0.2s;
   }
-  .links a:hover { border-color: var(--accent2); }
+  .work-links a:hover, .work-links a:focus-visible { background: var(--text); color: var(--bg); outline: none; }
+  .work-copy { margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
+  .contact form { display: grid; gap: 28px; }
+  .field { display: grid; gap: 10px; }
+  .field label { font-size: 0.75rem; letter-spacing: 0.2em; color: #c8c8c8; }
+  /* 入力する所は枠で囲み、地を少し明るくして、どこに書くか一目で分かるようにする */
+  .field input, .field textarea {
+    background: #111; border: 1px solid #5a5a5a; color: var(--text);
+    font: inherit; font-size: 1rem; padding: 12px 14px; border-radius: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .field textarea { resize: vertical; min-height: 160px; line-height: 1.7; }
+  .field input:hover, .field textarea:hover { border-color: #8a8a8a; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--text); background: #1a1a1a; }
+  .send {
+    justify-self: start;
+    background: none; border: 1px solid var(--text); color: var(--text);
+    font: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+    padding: 14px 32px; cursor: pointer; line-height: 1.5;
+    transition: background 0.2s, color 0.2s;
+  }
+  .send:hover, .send:focus-visible { background: var(--text); color: var(--bg); outline: none; }
+  /* ボタンの下のメールアドレス（押すとコピー） */
+  .contact-mail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; font-size: 0.9rem; }
+  .contact-mail-label { color: var(--muted); }
+  .contact-address {
+    background: none; border: 0; border-bottom: 1px solid #5a5a5a; color: var(--text);
+    font: inherit; letter-spacing: 0.05em; padding: 0 0 2px; cursor: pointer; overflow-wrap: anywhere; text-align: left;
+    transition: border-color 0.2s;
+  }
+  .contact-address:hover, .contact-address:focus-visible { border-bottom-color: var(--text); outline: none; }
+  .contact-copied { color: var(--muted); font-size: 0.8rem; }
+  .copyright { border-top: 1px solid var(--line); padding-top: 32px; padding-bottom: max(32px, env(safe-area-inset-bottom)); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); }
 
-  footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-    padding: 48px 0 32px;
+  @media (max-width: 640px) {
+    .wrap { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+    nav .wrap { min-height: 56px; flex-wrap: wrap; column-gap: 16px; row-gap: 0; }
+    .nav-logo, .lang { height: 56px; display: flex; align-items: center; }
+    .nav-links { order: 3; flex-basis: 100%; gap: 24px; overflow-x: auto; scrollbar-width: none; padding: 0 0 12px; margin-top: -6px; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-logo { letter-spacing: 0.15em; }
+    .contact { grid-template-columns: 1fr; gap: 32px; padding-top: 72px; padding-bottom: 56px; }
+    .section-body { padding-top: 72px; padding-bottom: 72px; }
+    .group { margin-top: 48px; }
+    .work { grid-template-columns: 1fr; gap: 24px; }
+    .works { gap: 56px; }
+    .send { justify-self: stretch; }
+    .lang-menu button { padding: 11px 18px; }
   }
 </style>
 </head>
 <body>
-  <header class="wrap">
-    <div class="logo">POLTA GAMES</div>
-    <div class="logo-ja">ポルタゲームズ</div>
-    <p class="tagline">ちいさなスタジオで、たのしいゲームをつくっています。</p>
-  </header>
-
-  <main class="wrap">
-    <section id="games">
-      <h2>GAMES</h2>
-      <div class="card">
-        <span class="badge">COMING SOON</span>
-        <h3>新作ゲーム（タイトル準備中）</h3>
-        <p>ここにゲームの紹介文が入ります。どんなゲームなのか、遊びどころを2〜3行で書きましょう。</p>
-        <!-- Steamのストアページができたら、下の # をストアのURLに書き換えてください -->
-        <a class="btn" href="#">Steamでウィッシュリストに追加</a>
+  <nav>
+    <div class="wrap">
+      <a class="nav-logo" href="#">POLTA GAMES</a>
+      <ul class="nav-links" id="navLinks"></ul>
+      <div class="lang">
+        <button class="lang-button" id="langButton" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu">Language</button>
+        <ul class="lang-menu" id="langMenu" role="menu" hidden></ul>
       </div>
-    </section>
+    </div>
+  </nav>
 
-    <section id="about">
-      <h2>ABOUT</h2>
-      <p>ポルタゲームズは、個人で活動しているゲーム開発スタジオです。Steamを中心にゲームを発表しています。</p>
-    </section>
-
-    <section id="links">
-      <h2>LINKS</h2>
-      <!-- 使わないリンクは行ごと消してOKです。# を自分のURLに書き換えてください -->
-      <ul class="links">
-        <li><a href="#">X（Twitter）</a></li>
-        <li><a href="#">YouTube</a></li>
-        <li><a href="#">お問い合わせ</a></li>
-      </ul>
+  <!-- ②: 項目を <section id="英字の名前" data-nav="訳のキー">…</section> で上から順につなげて置く。
+       上の帯の項目名は data-nav のキーの文（TEXTS）で自動で並び、押すとその項目へスクロールする -->
+  <main id="content">
+    <!-- ゲーム: 自作のゲームと開発に協力したゲーム -->
+    <section id="games" data-nav="games">
+      <div class="wrap section-body">
+        <h2 class="section-title" data-i18n="games">Games</h2>
+        <!-- POLTA GAMES のゲーム -->
+        <div class="group" id="originals">
+          <h3 class="group-title">ORIGINALS</h3>
+          <p class="coming-soon">COMING SOON</p>
+        </div>
+        <!-- 開発に協力したゲーム -->
+        <div class="group" id="collaborations">
+          <h3 class="group-title">COLLABORATIONS</h3>
+          <div class="works">
+            <!-- 仮のカード（中身が届いたら差し替える）。画像は site/images/ に置いて <img class="work-image" src="images/…" alt="タイトル"> にする -->
+            <article class="work">
+              <div class="work-image placeholder">GAME IMAGE</div>
+              <div>
+                <h4 class="work-title">ゲームタイトル</h4>
+                <p class="work-meta">SHINISE GAMES ・ 2025</p>
+                <p class="work-text">ゲーム概要がここに入ります。どんなゲームなのか、遊びどころを 2〜3 行で書きます。</p>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <p class="work-role">協力した部分がここに入ります。</p>
+                <ul class="work-links">
+                  <li><a href="#">Steam</a></li>
+                  <li><a href="#">Nintendo Switch</a></li>
+                </ul>
+                <p class="work-copy">&copy; 2025 SHINISE GAMES</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="wrap">
-    &copy; 2026 Polta Games
+  <footer>
+    <div class="wrap contact" id="contact">
+      <div>
+        <h2 class="section-title" data-i18n="contact">Contact</h2>
+      </div>
+      <form id="contactForm">
+        <div class="field">
+          <label for="contactName" data-i18n="name">Name</label>
+          <input id="contactName" name="name" autocomplete="name" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="contactEmail" data-i18n="email">Email</label>
+          <input id="contactEmail" name="email" type="email" autocomplete="email" maxlength="200" required>
+        </div>
+        <div class="field">
+          <label for="contactMessage" data-i18n="message">Message</label>
+          <textarea id="contactMessage" name="message" maxlength="1500" required></textarea>
+        </div>
+        <button class="send" type="submit" data-i18n="send">Review in Mail App</button>
+        <p class="contact-mail">
+          <span class="contact-mail-label" data-i18n="byMail">Contact us by email</span>
+          <button class="contact-address" id="contactAddress" type="button">porutanku@gmail.com</button>
+          <span class="contact-copied" id="contactCopied" data-i18n="copied" aria-live="polite" hidden>Copied</span>
+        </p>
+      </form>
+    </div>
+    <div class="wrap copyright">&copy; 2026 POLTA GAMES</div>
   </footer>
+
+<script>
+  // 選べる言語（code は html の lang に入れる値）。初めて開いたときはブラウザの言語から選び、合わなければ英語。選んだ言語はブラウザに覚えさせる
+  const LANGS = [
+    { code: "en", name: "English" },
+    { code: "ja", name: "日本語" },
+    { code: "zh-CN", name: "简体中文" },
+    { code: "zh-TW", name: "繁體中文" },
+    { code: "ko", name: "한국어" },
+    { code: "es", name: "Español" },
+    { code: "fr", name: "Français" },
+    { code: "de", name: "Deutsch" },
+    { code: "pt-BR", name: "Português (Brasil)" },
+    { code: "ru", name: "Русский" },
+  ];
+  const DEFAULT_LANG = "en";
+  const STORAGE_KEY = "poltagames-lang";
+  // 言語ごとの文（data-i18n="キー" を付けた要素の文を差し替える。訳の無いキーは英語、英語にも無ければ元の文のまま）
+  const TEXTS = {
+    en: { contribution: "Our Contribution", games: "Games", contact: "Contact", name: "Name", email: "Email", message: "Message", send: "Review in Mail App", subject: "Inquiry from the POLTA GAMES website", byMail: "Contact us by email", copied: "Copied" },
+    ja: { contribution: "協力内容", games: "ゲーム", contact: "お問い合わせ", name: "お名前", email: "メールアドレス", message: "お問い合わせ内容", send: "メールアプリで確認", subject: "POLTA GAMES サイトからのお問い合わせ", byMail: "メールアドレスから問い合わせる", copied: "コピーしました" },
+    "zh-CN": { contribution: "合作内容", games: "游戏", contact: "联系我们", name: "姓名", email: "电子邮箱", message: "咨询内容", send: "在邮件应用中确认", subject: "来自 POLTA GAMES 网站的咨询", byMail: "通过电子邮件联系", copied: "已复制" },
+    "zh-TW": { contribution: "合作內容", games: "遊戲", contact: "聯絡我們", name: "姓名", email: "電子郵件", message: "詢問內容", send: "在郵件應用程式中確認", subject: "來自 POLTA GAMES 網站的詢問", byMail: "透過電子郵件聯絡", copied: "已複製" },
+    ko: { contribution: "협력 내용", games: "게임", contact: "문의", name: "이름", email: "이메일 주소", message: "문의 내용", send: "메일 앱에서 확인", subject: "POLTA GAMES 웹사이트 문의", byMail: "이메일로 문의하기", copied: "복사했습니다" },
+    es: { contribution: "Nuestra contribución", games: "Juegos", contact: "Contacto", name: "Nombre", email: "Correo electrónico", message: "Mensaje", send: "Revisar en la app de correo", subject: "Consulta desde el sitio web de POLTA GAMES", byMail: "Contactar por correo electrónico", copied: "Copiado" },
+    fr: { contribution: "Notre contribution", games: "Jeux", contact: "Contact", name: "Nom", email: "Adresse e-mail", message: "Message", send: "Vérifier dans l’app de messagerie", subject: "Demande depuis le site de POLTA GAMES", byMail: "Nous contacter par e-mail", copied: "Copié" },
+    de: { contribution: "Unser Beitrag", games: "Spiele", contact: "Kontakt", name: "Name", email: "E-Mail-Adresse", message: "Nachricht", send: "In der Mail-App prüfen", subject: "Anfrage über die Website von POLTA GAMES", byMail: "Per E-Mail kontaktieren", copied: "Kopiert" },
+    "pt-BR": { contribution: "Nossa contribuição", games: "Jogos", contact: "Contato", name: "Nome", email: "E-mail", message: "Mensagem", send: "Revisar no app de e-mail", subject: "Contato pelo site da POLTA GAMES", byMail: "Fale conosco por e-mail", copied: "Copiado" },
+    ru: { contribution: "Наш вклад", games: "Игры", contact: "Связаться с нами", name: "Имя", email: "Электронная почта", message: "Сообщение", send: "Проверить в почтовом приложении", subject: "Обращение с сайта POLTA GAMES", byMail: "Написать нам на электронную почту", copied: "Скопировано" },
+  };
+  const text = key => (TEXTS[document.documentElement.lang] || {})[key] ?? TEXTS[DEFAULT_LANG][key];
+
+  const button = document.getElementById("langButton");
+  const menu = document.getElementById("langMenu");
+
+  function savedLang() {
+    try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }
+  }
+
+  // 初めて開いたときは、ブラウザの言語（OS や地域の設定から決まる）に合う言語を選ぶ。合う物が無ければ英語
+  function browserLang() {
+    for (const tag of navigator.languages || [navigator.language]) {
+      const lower = (tag || "").toLowerCase();
+      const base = lower.split("-")[0];
+      if (base === "zh") return /-(tw|hk|mo|hant)/.test(lower) ? "zh-TW" : "zh-CN";
+      if (base === "pt") return "pt-BR";
+      const hit = LANGS.find(l => l.code.toLowerCase() === base);
+      if (hit) return hit.code;
+    }
+    return DEFAULT_LANG;
+  }
+
+  function applyLang(code, remember) {
+    if (!LANGS.some(l => l.code === code)) code = DEFAULT_LANG;
+    document.documentElement.lang = code;
+    const texts = TEXTS[code] || {};
+    for (const el of document.querySelectorAll("[data-i18n]")) {
+      const key = el.dataset.i18n;
+      const text = texts[key] ?? TEXTS[DEFAULT_LANG][key];
+      if (text !== undefined) el.textContent = text;
+    }
+    for (const item of menu.querySelectorAll("button")) item.setAttribute("aria-checked", item.dataset.lang === code);
+    if (remember) try { localStorage.setItem(STORAGE_KEY, code); } catch {}
+  }
+
+  function setOpen(open) {
+    menu.hidden = !open;
+    button.setAttribute("aria-expanded", open);
+    if (open) (menu.querySelector('[aria-checked="true"]') || menu.querySelector("button")).focus();
+  }
+
+  for (const { code, name } of LANGS) {
+    const li = document.createElement("li");
+    const item = document.createElement("button");
+    item.type = "button";
+    item.role = "menuitemradio";
+    item.lang = code;
+    item.dataset.lang = code;
+    item.textContent = name;
+    item.addEventListener("click", () => { applyLang(code, true); setOpen(false); button.focus(); });
+    li.append(item);
+    menu.append(li);
+  }
+
+  button.addEventListener("click", () => setOpen(menu.hidden));
+  document.addEventListener("click", e => { if (!e.target.closest(".lang")) setOpen(false); });
+  document.addEventListener("keydown", e => {
+    if (menu.hidden) return;
+    if (e.key === "Escape") { setOpen(false); button.focus(); return; }
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const items = [...menu.querySelectorAll("button")];
+    const i = items.indexOf(document.activeElement);
+    items[(i + (e.key === "ArrowDown" ? 1 : items.length - 1)) % items.length].focus();
+    e.preventDefault();
+  });
+
+  // 上の帯の項目名: ② の section[data-nav] から作る。押すとその項目へなめらかにスクロール（html の scroll-behavior）
+  const navLinks = document.getElementById("navLinks");
+  const sections = [...document.querySelectorAll("main > section[data-nav]")];
+  for (const section of sections) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#" + section.id;
+    a.dataset.i18n = section.dataset.nav;
+    a.textContent = section.dataset.nav;
+    li.append(a);
+    navLinks.append(li);
+  }
+
+  applyLang(savedLang() || browserLang());
+
+  // 上の帯の高さ（スマホで項目名が 2 行目に回ると変わる）を、② の高さと移った先の位置に使う
+  const nav = document.querySelector("nav");
+  new ResizeObserver(() => document.documentElement.style.setProperty("--nav-h", nav.offsetHeight + "px")).observe(nav);
+
+  // 今見ている項目の名前を白くする（上の帯のすぐ下から画面の 3 割までに頭が来ている、いちばん下の項目。一番下まで来たら最後の項目）。
+  // スクロールのたびに数えず、1 コマに 1 回だけ見る
+  if (sections.length) {
+    const links = sections.map(s => navLinks.querySelector(`a[href="#${s.id}"]`));
+    let pending = false;
+    const markCurrent = () => {
+      pending = false;
+      const line = nav.offsetHeight + innerHeight * 0.3;
+      let index = -1;
+      sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= line) index = i; });
+      const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+      if (atEnd) index = sections.length - 1;
+      links.forEach((a, i) => a.classList.toggle("is-current", i === index));
+    };
+    addEventListener("scroll", () => { if (!pending) { pending = true; requestAnimationFrame(markCurrent); } }, { passive: true });
+    addEventListener("resize", markCurrent);
+    markCurrent();
+  }
+
+  // お問い合わせ: 入力をメールの件名と本文にして、見る人のメールアプリで開く（送るのは見る人のメールアプリ）。
+  // 届け先（ボタンの下にも同じアドレスを表示している。押すとコピー）
+  const CONTACT_TO = "porutanku@gmail.com";
+  document.getElementById("contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const value = id => document.getElementById(id).value.trim();
+    const body = `${text("name")}: ${value("contactName")}\n${text("email")}: ${value("contactEmail")}\n\n${value("contactMessage")}\n`;
+    location.href = `mailto:${CONTACT_TO}?subject=${encodeURIComponent(text("subject"))}&body=${encodeURIComponent(body)}`;
+  });
+
+  // 押すとアドレスをコピーし、横に「コピーしました」を少しだけ出す（続けて押しても表示を延ばすだけ）
+  const copied = document.getElementById("contactCopied");
+  let copiedTimer = 0;
+  document.getElementById("contactAddress").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(CONTACT_TO); }
+    catch {
+      // 古いブラウザ向け: 見えない入力欄に入れて選び、コピーの命令を使う
+      const area = document.createElement("textarea");
+      area.value = CONTACT_TO;
+      area.style.position = "fixed"; area.style.opacity = "0";
+      document.body.append(area); area.select();
+      try { document.execCommand("copy"); } finally { area.remove(); }
+    }
+    copied.hidden = false;
+    clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(() => copied.hidden = true, 1800);
+  });
+</script>
 </body>
 </html>
