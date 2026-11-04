@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polta Games｜ポルタゲームズ</title>
+<meta name="description" content="個人ゲーム開発スタジオ「ポルタゲームズ」の公式サイトです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14121f;
+    --card: #1f1c30;
+    --text: #f2eee6;
+    --muted: #a39fb8;
+    --accent: #ffb347;
+    --accent2: #7ad3c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    line-height: 1.8;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 72px 0 56px; text-align: center; }
+  .logo {
+    font-family: "DotGothic16", monospace;
+    font-size: clamp(2.4rem, 9vw, 4rem);
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    text-shadow: 4px 4px 0 #5b3a8c;
+  }
+  .logo-ja { font-family: "DotGothic16", monospace; color: var(--muted); margin-top: 4px; }
+  .tagline { margin-top: 20px; }
+
+  section { padding: 40px 0; }
+  h2 {
+    font-family: "DotGothic16", monospace;
+    font-size: 1.5rem;
+    color: var(--accent2);
+    margin-bottom: 20px;
+  }
+  h2::before { content: "▶ "; color: var(--accent); }
+
+  .card {
+    background: var(--card);
+    border: 3px solid #3a3555;
+    border-radius: 6px;
+    padding: 24px;
+  }
+  .card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    font-family: "DotGothic16", monospace;
+    font-size: 0.85rem;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 2px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .card p { color: var(--muted); }
+
+  .btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 22px;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 #5b3a8c;
+  }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #5b3a8c; }
+
+  .links { list-style: none; display: grid; gap: 12px; }
+  .links a {
+    display: block;
+    background: var(--card);
+    border: 3px solid #3a3555;
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .links a:hover { border-color: var(--accent2); }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 48px 0 32px;
+  }
+</style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="logo">POLTA GAMES</div>
+    <div class="logo-ja">ポルタゲームズ</div>
+    <p class="tagline">ちいさなスタジオで、たのしいゲームをつくっています。</p>
+  </header>
+
+  <main class="wrap">
+    <section id="games">
+      <h2>GAMES</h2>
+      <div class="card">
+        <span class="badge">COMING SOON</span>
+        <h3>新作ゲーム（タイトル準備中）</h3>
+        <p>ここにゲームの紹介文が入ります。どんなゲームなのか、遊びどころを2〜3行で書きましょう。</p>
+        <!-- Steamのストアページができたら、下の # をストアのURLに書き換えてください -->
+        <a class="btn" href="#">Steamでウィッシュリストに追加</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>ABOUT</h2>
+      <p>ポルタゲームズは、個人で活動しているゲーム開発スタジオです。Steamを中心にゲームを発表しています。</p>
+    </section>
+
+    <section id="links">
+      <h2>LINKS</h2>
+      <!-- 使わないリンクは行ごと消してOKです。# を自分のURLに書き換えてください -->
+      <ul class="links">
+        <li><a href="#">X（Twitter）</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    &copy; 2026 Polta Games
+  </footer>
+</body>
+</html>
