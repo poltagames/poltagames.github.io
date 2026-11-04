@@ -80,7 +80,8 @@
   /* 2: 中身（最初の画面いっぱい。3 は最後までスクロールすると見える） */
   :root { --nav-h: 65px; }
   main { flex: 1; min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); }
-  main > section { scroll-margin-top: var(--nav-h); border-bottom: 1px solid var(--line); }
+  main > section { border-bottom: 1px solid var(--line); }
+  [data-nav] { scroll-margin-top: var(--nav-h); }
   main > section:last-child { border-bottom: 0; }
 
   /* 3: 一番下（どのページでも同じ） */
@@ -328,7 +329,7 @@
   </main>
 
   <footer>
-    <div class="wrap contact" id="contact">
+    <div class="wrap contact" id="contact" data-nav="contact">
       <div>
         <h2 class="section-title" data-i18n="contact">Contact</h2>
       </div>
@@ -454,9 +455,9 @@
     e.preventDefault();
   });
 
-  // 上の帯の項目名: ② の section[data-nav] から作る。押すとその項目へなめらかにスクロール（html の scroll-behavior）
+  // 上の帯の項目名: ページの上から順に data-nav の付いた所（② の項目と③のお問い合わせ）から作る。押すとその項目へなめらかにスクロール（html の scroll-behavior）
   const navLinks = document.getElementById("navLinks");
-  const sections = [...document.querySelectorAll("main > section[data-nav]")];
+  const sections = [...document.querySelectorAll("[data-nav]")];
   for (const section of sections) {
     const li = document.createElement("li");
     const a = document.createElement("a");
