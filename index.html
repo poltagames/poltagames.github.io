@@ -110,8 +110,8 @@
   .profile { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
   .profile-name { margin-top: 20px; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.15em; }
   .profile-text { margin-top: 16px; max-width: 36em; color: #c8c8c8; }
-  .profile-icon { flex: none; width: 200px; aspect-ratio: 1; object-fit: contain; background: transparent; border: 1px solid var(--text); }
-  .profile-icon.placeholder { display: flex; align-items: center; justify-content: center; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); }
+  /* アイコンは丸く切り抜き、白い線で囲む（透過の画像でもよい） */
+  .profile-icon { flex: none; width: 200px; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; background: transparent; border: 1px solid var(--text); }
   /* ゲーム 1 本ぶん: 左に画像・右に文（スマホは縦に並ぶ） */
   .works { display: grid; gap: 64px; padding-top: 40px; }
   .work { display: grid; grid-template-columns: 5fr 6fr; gap: 40px; align-items: start; }
@@ -198,7 +198,7 @@
   <!-- ②: 項目を <section id="英字の名前" data-nav="上の帯に出す名前">…</section> で上から順につなげて置く。
        上の帯の項目名は data-nav の文がそのまま（どの言語でも同じ英語で）並び、押すとその項目へスクロールする -->
   <main id="content">
-    <!-- プロフィール。アイコンは site/images/ に置いて <img class="profile-icon" src="images/…" alt="POLTA GAMES"> にする（正方形・透過の PNG でよい） -->
+    <!-- プロフィール。アイコンは site/images/icon.jpg（丸く切り抜いて見せる・正方形・透過の PNG でよい） -->
     <section id="profile" data-nav="PROFILE">
       <div class="wrap section-body profile">
         <div>
@@ -210,7 +210,7 @@
           <p class="work-label" data-i18n="platforms">Platforms</p>
           <ul class="work-role"><li>Steam</li><li>Nintendo Switch</li></ul>
         </div>
-        <div class="profile-icon placeholder">ICON</div>
+        <img class="profile-icon" src="images/icon.jpg" alt="POLTA" width="200" height="200">
       </div>
     </section>
     <!-- ゲーム: 自作のゲームと開発に協力したゲーム -->
