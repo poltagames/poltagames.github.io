@@ -121,6 +121,27 @@
   .work-points { margin-top: 24px; max-width: 44em; list-style: none; display: grid; gap: 16px; color: #c8c8c8; }
   .work-points li { position: relative; padding-left: 28px; }
   .work-points li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 14px; height: 1px; background: var(--muted); }
+  /* 動き: 見えたら下からふわっと出る（.reveal に .is-visible が付く）。動きを減らす設定の人には動かさない */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+  .work-image { transition: filter 0.3s ease; }
+  .work-media a:hover ~ .work-image, .work-image:hover { filter: brightness(1.12); }
+  /* 開いた瞬間の「顔」: 画面いっぱい・後ろにゲームの画像を白黒でうっすら・ゆっくり流れる */
+  .hero { position: relative; min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-bg { position: absolute; inset: -20% -10%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; opacity: 0.22; filter: grayscale(1); transform: rotate(-8deg); animation: hero-drift 60s linear infinite alternate; }
+  .hero-bg img { width: 100%; aspect-ratio: 460 / 215; object-fit: cover; display: block; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, #000 78%); }
+  .hero-inner { position: relative; z-index: 1; padding: 0 20px; animation: hero-in 1.2s ease both; }
+  .hero-icon { width: 96px; height: 96px; border-radius: 50%; margin: 0 auto; display: block; }
+  .hero-title { margin-top: 28px; font-size: clamp(2.6rem, 9vw, 6rem); font-weight: 800; letter-spacing: 0.06em; line-height: 1; }
+  .hero-sub { margin-top: 22px; font-size: 0.75rem; letter-spacing: 0.4em; color: #a0a0a0; }
+  .hero-scroll { position: absolute; z-index: 1; left: 50%; bottom: 28px; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--muted); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hero-scroll::after { content: ""; width: 1px; height: 40px; background: linear-gradient(var(--text), transparent); animation: hero-cue 2s ease-in-out infinite; }
+  @keyframes hero-drift { from { transform: rotate(-8deg) translateY(0); } to { transform: rotate(-8deg) translateY(-12%); } }
+  @keyframes hero-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes hero-cue { 0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .hero-bg, .hero-inner, .hero-scroll::after { animation: none; } }
   .coming-soon { padding: 32px 0 8px; font-size: 1rem; font-weight: 400; letter-spacing: 0.3em; color: var(--muted); }
   /* プロフィール: 左に見出し・右に正方形のアイコン（透過の画像でも、白い線で囲む） */
   .profile { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
@@ -136,15 +157,18 @@
   /* アイコンは丸く切り抜く（縁は付けない・透過の画像でもよい） */
   .profile-icon { flex: none; width: 200px; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; background: transparent; }
   /* ゲーム 1 本ぶん: 左に画像・右に文（スマホは縦に並ぶ） */
-  .works { display: grid; gap: 64px; padding-top: 40px; }
+  .works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px 56px; padding-top: 40px; }
   .work > * { min-width: 0; }
   /* 題名はカードの一番上に真ん中ぞろえ（画像と文の両方の列にまたがる） */
   .title-part { display: inline-block; }
-  .work-title { overflow-wrap: anywhere; grid-column: 1 / -1; text-align: center; margin-bottom: -12px; }
-  .work { display: grid; grid-template-columns: 5fr 6fr; gap: 40px; align-items: start; }
+  /* 題名の副題は次の行に（区切りの「|」や空白は出さない） */
+  .title-sep { display: none; }
+  .title-sub { display: block; }
+  .work-title { overflow-wrap: anywhere; text-align: center; font-size: 1.25rem; line-height: 1.45; min-height: 4.35em; display: flex; flex-direction: column; justify-content: flex-end; }
+  .work { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: start; }
   .work-image { width: 100%; height: auto; aspect-ratio: 460 / 215; object-fit: cover; display: block; background: #111; border: 1px solid var(--line); }
   .work-image.placeholder { display: flex; align-items: center; justify-content: center; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); }
-  .work-title { font-size: 1.5rem; font-weight: 700; line-height: 1.4; }
+  .work-title { font-weight: 700; }
   .work-text { margin-top: 4px; color: #c8c8c8; }
   .work-label.work-label-first { margin-top: 0; }
   .work-label { margin-top: 24px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; color: var(--text); }
@@ -153,7 +177,8 @@
   .work-role li:not(:last-child)::after { content: "／"; margin: 0 0.6em; color: var(--muted); }
   .work-period { margin-top: 4px; color: #c8c8c8; }
   /* 開発期間と開発人数を横に並べる */
-  .work-facts { display: flex; flex-wrap: wrap; column-gap: 48px; }
+  .work-facts { display: flex; flex-wrap: wrap; column-gap: 40px; }
+  .work-facts .work-label { margin-top: 24px; }
   .work-links { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
   .work-links a {
     display: inline-block; padding: 6px 18px; line-height: 1.4; border: 1px solid var(--text);
@@ -207,11 +232,9 @@
     .contact { grid-template-columns: 1fr; gap: 32px; padding-top: 72px; padding-bottom: 56px; }
     .section-body { padding-top: 72px; padding-bottom: 72px; }
     .group { margin-top: 48px; }
-    .work { grid-template-columns: 1fr; gap: 24px; }
-    /* 題名の副題は次の行に（区切りの「|」や空白は出さない） */
-    .title-sep { display: none; }
-    .title-sub { display: block; }
-    .work-title { font-size: 1.25rem; }
+    .works { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+    .work-title { min-height: 0; }
+    .work-facts { column-gap: 28px; }
     .works { gap: 56px; }
     /* スマホはアイコンを説明の上に（横に並べると説明の幅が狭くなり、1 行に数文字しか入らなかった） */
     .profile { gap: 28px; flex-direction: column-reverse; align-items: center; }
@@ -237,6 +260,16 @@
   <!-- ②: 項目を <section id="英字の名前" data-nav="上の帯に出す名前">…</section> で上から順につなげて置く。
        上の帯の項目名は data-nav の文がそのまま（どの言語でも同じ英語で）並び、押すとその項目へスクロールする -->
   <main id="content">
+    <!-- 開いた瞬間の「顔」（仮・2026-11-04 ユーザーの指定）。上の帯の項目には出さない -->
+    <section class="hero" aria-label="POLTA GAMES">
+      <div class="hero-bg" aria-hidden="true"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"><img src="images/platform5.jpg" alt="" loading="lazy"><img src="images/platform4.jpg" alt="" loading="lazy"><img src="images/sanbansen.jpg" alt="" loading="lazy"><img src="images/nibansen.jpg" alt="" loading="lazy"><img src="images/doashime.jpg" alt="" loading="lazy"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"><img src="images/platform5.jpg" alt="" loading="lazy"><img src="images/platform4.jpg" alt="" loading="lazy"><img src="images/sanbansen.jpg" alt="" loading="lazy"><img src="images/nibansen.jpg" alt="" loading="lazy"><img src="images/doashime.jpg" alt="" loading="lazy"><img src="images/trainplus.jpg" alt="" loading="lazy"><img src="images/platform6.jpg" alt="" loading="lazy"></div>
+      <div class="hero-inner">
+        <img class="hero-icon" src="images/icon.jpg" alt="" width="96" height="96">
+        <h1 class="hero-title">POLTA GAMES</h1>
+        <p class="hero-sub">INDIE GAME DEVELOPER ・ JAPAN</p>
+      </div>
+      <a class="hero-scroll" href="#profile">SCROLL</a>
+    </section>
     <!-- プロフィール。アイコンは site/images/icon.jpg（丸く切り抜いて見せる・正方形・透過の PNG でよい） -->
     <section id="profile" data-nav="PROFILE">
       <div class="wrap section-body">
@@ -282,14 +315,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descTrainPlus">An authentic train-driving game featuring real JR-West trains. Enjoy non-stop runs on the Special Rapid Service, overtaking local trains along the way. Your driving accuracy is scored, and card decks let you push your score even higher.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreTrainSim">Train Driving Simulation</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreTrainSim">Train Driving Simulation</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period10Months">10 months</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team2">2 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2026 SHINISE GAMES</p>
               </div>
             </article>
@@ -306,14 +338,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descPlatform6">The Bansen series goes online co-op. Team up with up to four players on a looping station platform, spot the anomalies and report them together. The most anomalies in the series, in classic anomaly-hunting style, and you can still play solo.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgramming">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period6Months">6 months</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team3">3 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgramming">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2025 MFC STUDIO / SHINISE GAMES</p>
               </div>
             </article>
@@ -330,14 +361,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descPlatform5">The first story-driven horror game in the Bansen series. As a rescuer, search the maze-like Chijuku Station, overrun by anomalies, for the Ojisan left behind. Pick up trash to use as weapons and find him somewhere among six stations.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreExploreHorror">Exploration Escape Horror</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreExploreHorror">Exploration Escape Horror</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period2Months">2 months</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team3">3 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2025 MFC STUDIO</p>
               </div>
             </article>
@@ -354,14 +384,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descPlatform4">Head for a distant airport from Platform 4 of a repeating night-time station. Spot an anomaly and board the rear car to turn back; see nothing strange and move on to the front car. Break out of the seven looping stations.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period2Months">2 months</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team3">3 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
@@ -378,14 +407,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descSanbansen">The sequel to Nibansen: escape from Line 3 of an endlessly repeating station. Spot an anomaly and head back to the opposite elevator; see nothing strange and keep going. Figure out the rules and make your way to Exit 10.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgramming">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period3Months">3 months</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team3">3 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgramming">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
@@ -402,14 +430,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descNibansen">A short escape game set on Line 2 of an endlessly looping subway station. Spot an anomaly and turn back; see nothing strange and keep going. Figure out the rules and make your way to Exit C7.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genreAnomaly">Anomaly Hunting</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period2Weeks">2 weeks</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team2">2 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSwitch">Nintendo Switch Port</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
@@ -425,14 +452,13 @@
               <div>
                 <p class="work-label work-label-first" data-i18n="overview">Overview</p>
                 <p class="work-text" data-i18n="descDoashime">A casual puzzle game: pack animals into three trains, build chains and chase a high score. Animals can't board a train with station staff on it, so slip past them and dash for an open door.</p>
-                <p class="work-label" data-i18n="genre">Genre</p>
-                <p class="work-period" data-i18n="genrePuzzle">Casual Puzzle</p>
-                <p class="work-label" data-i18n="contribution">Our Contribution</p>
-                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <div class="work-facts">
+                  <div><p class="work-label" data-i18n="genre">Genre</p><p class="work-period" data-i18n="genrePuzzle">Casual Puzzle</p></div>
                   <div><p class="work-label" data-i18n="period">Development Period</p><p class="work-period" data-i18n="period1Month">1 month</p></div>
                   <div><p class="work-label" data-i18n="teamSize">Team Size</p><p class="work-period" data-i18n="team2">2 people</p></div>
                 </div>
+                <p class="work-label" data-i18n="contribution">Our Contribution</p>
+                <ul class="work-role"><li data-i18n="roleProgram">Programming</li><li data-i18n="roleSystem">Gameplay System Proposals</li><li data-i18n="roleDesign">Detailed Design</li></ul>
                 <p class="work-copy">&copy; 2023 MFC STUDIO</p>
               </div>
             </article>
@@ -608,6 +634,16 @@
   }
 
   applyLang(savedLang() || browserLang());
+
+  // 動き: 見出し・小見出し・カード・プロフィール・お問い合わせを、画面に入ったら 1 回だけふわっと出す（2 列のカードは右を少し遅らせる）
+  const revealTargets = document.querySelectorAll(".section-title, .group-title, .coming-soon, .profile, .work-body, .work-points, .contact-note, .contact form, .work");
+  if ("IntersectionObserver" in window) {
+    const revealer = new IntersectionObserver(entries => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-visible"); revealer.unobserve(e.target); }
+    }, { rootMargin: "0px 0px -10% 0px" });
+    revealTargets.forEach(el => { el.classList.add("reveal"); revealer.observe(el); });
+    document.querySelectorAll(".works .work").forEach((el, i) => { if (i % 2) el.style.transitionDelay = "0.12s"; });
+  }
 
   // 上の帯の高さ（スマホで項目名が 2 行目に回ると変わる）を、② の高さと移った先の位置に使う
   const nav = document.querySelector("nav");
