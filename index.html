@@ -20,6 +20,8 @@
     --text: #fff;
     --muted: #8a8a8a;
     --line: #262626;
+    /* アクセントの緑（アイコンの緑）。今見ている項目と、押せる所に触れたときだけに使う */
+    --accent: #00c83c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -53,7 +55,7 @@
     transition: color 0.25s;
   }
   .nav-links a::after {
-    content: ""; position: absolute; left: 0; right: 0.2em; bottom: -2px; height: 1px; background: var(--text);
+    content: ""; position: absolute; left: 0; right: 0.2em; bottom: -2px; height: 2px; background: var(--accent);
     transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
   }
   .nav-links a:hover { color: #bdbdbd; }
@@ -136,7 +138,8 @@
   /* SNS のアイコン（白・乗せると少し暗く） */
   .sns { margin-top: 28px; display: flex; gap: 20px; list-style: none; }
   .sns a { display: block; width: 24px; height: 24px; color: var(--text); transition: opacity 0.2s; }
-  .sns a:hover, .sns a:focus-visible { opacity: 0.6; outline: none; }
+  .sns a:hover, .sns a:focus-visible { color: var(--accent); outline: none; }
+  .sns a { transition: color 0.2s; }
   .sns svg { width: 100%; height: 100%; fill: currentColor; display: block; }
   .profile-name { margin-top: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.15em; }
   .profile-text { margin-top: 16px; max-width: 36em; color: #c8c8c8; }
@@ -169,9 +172,9 @@
   .work-links a {
     display: inline-block; padding: 6px 18px; line-height: 1.4; border: 1px solid var(--text);
     font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
-  .work-links a:hover, .work-links a:focus-visible { background: var(--text); color: var(--bg); outline: none; }
+  .work-links a:hover, .work-links a:active, .work-links a:focus-visible { background: var(--accent); border-color: var(--accent); color: var(--bg); outline: none; }
   .work-copy { margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
   .contact form { display: grid; gap: 28px; }
   .field { display: grid; gap: 10px; }
@@ -190,9 +193,9 @@
     background: none; border: 1px solid var(--text); color: var(--text);
     font: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
     padding: 14px 32px; cursor: pointer; line-height: 1.5;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
-  .send:hover, .send:focus-visible { background: var(--text); color: var(--bg); outline: none; }
+  .send:hover, .send:active, .send:focus-visible { background: var(--accent); border-color: var(--accent); color: var(--bg); outline: none; }
   /* ボタンの下のメールアドレス（押すとコピー） */
   .contact-mail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; font-size: 0.9rem; }
   .contact-mail-label { color: var(--muted); }
@@ -201,7 +204,7 @@
     font: inherit; letter-spacing: 0.05em; padding: 0 0 2px; cursor: pointer; overflow-wrap: anywhere; text-align: left;
     transition: border-color 0.2s;
   }
-  .contact-address:hover, .contact-address:focus-visible { border-bottom-color: var(--text); outline: none; }
+  .contact-address:hover, .contact-address:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
   .contact-copied { color: var(--muted); font-size: 0.8rem; }
   /* 一番下の線は画面の端から端まで（中身の幅に合わせない） */
   .copyright-bar { border-top: 1px solid var(--line); }
