@@ -114,7 +114,7 @@
   /* ゲーム 1 本ぶん: 左に画像・右に文（スマホは縦に並ぶ） */
   .works { display: grid; gap: 64px; padding-top: 40px; }
   .work { display: grid; grid-template-columns: 5fr 6fr; gap: 40px; align-items: start; }
-  .work-image { width: 100%; aspect-ratio: 460 / 215; object-fit: cover; display: block; background: #111; border: 1px solid var(--line); }
+  .work-image { width: 100%; height: auto; aspect-ratio: 460 / 215; object-fit: cover; display: block; background: #111; border: 1px solid var(--line); }
   .work-image.placeholder { display: flex; align-items: center; justify-content: center; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--muted); }
   .work-title { font-size: 1.5rem; font-weight: 700; line-height: 1.4; }
   .work-text { margin-top: 20px; color: #c8c8c8; }
@@ -217,7 +217,7 @@
         <div class="group" id="collaborations">
           <h3 class="group-title">COLLABORATIONS</h3>
           <div class="works">
-            <!-- 仮のカード（試しに 8 枚並べている）（中身が届いたら差し替える）。画像は site/images/ に置いて <img class="work-image" src="images/…" alt="タイトル"> にする -->
+            <!-- 新しい作品ほど上に並べる。仮のカード（試しに 8 枚並べている）は中身が届いたものから本物にする。画像は site/images/ に置いて <img class="work-image" src="images/…" alt="タイトル"> にする -->
             <article class="work">
               <div class="work-image placeholder">GAME IMAGE</div>
               <div>
@@ -303,17 +303,18 @@
               </div>
             </article>
             <article class="work">
-              <div class="work-image placeholder">GAME IMAGE</div>
+              <!-- 2 作目（2024） -->
+              <img class="work-image" src="images/nibansen.jpg" alt="2番線 | Nibansen" width="460" height="215" loading="lazy">
               <div>
-                <h4 class="work-title" data-i18n="phTitle">Game Title</h4>
+                <h4 class="work-title">2番線 | Nibansen</h4>
                 <p class="work-text" data-i18n="phText">A short description of the game goes here: what kind of game it is and what makes it fun, in two or three lines.</p>
                 <p class="work-label" data-i18n="contribution">Our Contribution</p>
                 <p class="work-role" data-i18n="phRole">What we contributed goes here.</p>
                 <ul class="work-links">
-                  <li><a href="#">Steam</a></li>
-                  <li><a href="#">Nintendo Switch</a></li>
+                  <li><a href="https://store.steampowered.com/app/2699510/" target="_blank" rel="noopener">Steam</a></li>
+                  <li><a href="https://store-jp.nintendo.com/item/software/D70010000078020" target="_blank" rel="noopener">Nintendo Switch</a></li>
                 </ul>
-                <p class="work-copy">&copy; 2025 SHINISE GAMES</p>
+                <p class="work-copy">&copy; 2024 MFC STUDIO</p>
               </div>
             </article>
             <article class="work">
