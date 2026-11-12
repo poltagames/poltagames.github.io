@@ -108,11 +108,10 @@
   /* 3: 一番下（どのページでも同じ） */
   footer { border-top: 1px solid var(--line); }
   .contact > .section-title { grid-column: 1 / -1; margin-bottom: 0; }
-  .contact { padding-top: 96px; padding-bottom: 80px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+  .contact { padding-top: 96px; padding-bottom: 80px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
   /* 項目の見出し（② の各項目と③のお問い合わせで同じ大きさ） */
   .section-title { font-size: clamp(1.5rem, 3.4vw, 1.9rem); font-weight: 700; letter-spacing: 0.08em; line-height: 1.3; text-align: center; margin-bottom: 48px; }
   /* 項目の名前は線も枠も付けず、ページの真ん中にそろえる（2026-11-04 ユーザーの指定） */
-  .contact-note { margin-top: 0; color: #c8c8c8; white-space: pre-line; }
   /* 日本語は文節の切れ目で折り返す（対応しているブラウザだけ・ほかは今まで通り） */
   :lang(ja) body { word-break: auto-phrase; }
   .section-body { padding-top: 96px; padding-bottom: 96px; }
@@ -180,7 +179,8 @@
   }
   .work-links a:hover, .work-links a:active, .work-links a:focus-visible { background: var(--accent); border-color: var(--accent); color: var(--bg); outline: none; }
   .work-copy { margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
-  .contact form { display: grid; gap: 28px; }
+  /* 入力欄はページの真ん中に寄せる（2026-11-12 ユーザーの指定） */
+  .contact form { display: grid; gap: 28px; width: 100%; max-width: 640px; justify-self: center; }
   .field { display: grid; gap: 10px; }
   .field label { font-size: 0.75rem; letter-spacing: 0.2em; color: #c8c8c8; }
   /* 入力する所は枠で囲み、地を少し明るくして、どこに書くか一目で分かるようにする */
@@ -469,9 +469,6 @@
   <footer>
     <div class="wrap contact" id="contact" data-nav="CONTACT">
       <h2 class="section-title">CONTACT</h2>
-      <div>
-        <p class="contact-note" data-i18n="contactNote">Feel free to get in touch with any inquiries.</p>
-      </div>
       <form id="contactForm">
         <div class="field">
           <label for="contactName" data-i18n="name">Name</label>
