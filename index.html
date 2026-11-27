@@ -178,6 +178,14 @@
     transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
   .work-links a:hover, .work-links a:active, .work-links a:focus-visible { background: var(--accent); border-color: var(--accent); color: var(--bg); outline: none; }
+  /* プレイテストを配っている間だけ出す、目立たせるボタン（緑の地に黒い字・2026-11-27 ユーザーの指定） */
+  .playtest-cta { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: var(--accent); border: 1px solid var(--accent); color: var(--bg); font-weight: 700; font-size: 1.05rem; line-height: 1.4; letter-spacing: 0.04em; text-decoration: none; transition: background 0.2s ease, border-color 0.2s ease; }
+  .playtest-cta:hover, .playtest-cta:active, .playtest-cta:focus-visible { background: var(--text); border-color: var(--text); outline: none; }
+  .playtest-cta-main { display: flex; align-items: center; gap: 12px; }
+  .playtest-cta-main::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: currentColor; animation: playtest-pulse 1.4s ease-in-out infinite; }
+  .playtest-cta-sub { flex: none; font-size: 0.75rem; letter-spacing: 0.15em; white-space: nowrap; }
+  @keyframes playtest-pulse { 50% { opacity: 0.2; } }
+  @media (prefers-reduced-motion: reduce) { .playtest-cta-main::before { animation: none; } }
   .work-copy { margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
   /* 入力欄はページの真ん中に寄せる（2026-11-12 ユーザーの指定） */
   .contact form { display: grid; gap: 28px; width: 100%; max-width: 640px; justify-self: center; }
@@ -283,9 +291,9 @@
               <h4 class="work-title"><span>GRENADE SHOT!</span></h4>
               <div class="work-media">
                 <img class="work-image" src="images/grenadeshot.jpg" alt="GRENADE SHOT!" width="920" height="430" loading="lazy">
+                <a class="playtest-cta" href="https://polta-gamedev.itch.io/grenade-shot-playtest" target="_blank" rel="noopener"><span class="playtest-cta-main" data-i18n="playtestLive">Playtest available now!</span><span class="playtest-cta-sub">itch.io &rarr;</span></a>
                 <ul class="work-links">
                   <li><a href="https://store.steampowered.com/app/5572420/GRENADE_SHOT/" target="_blank" rel="noopener">Steam</a></li>
-                  <li><a href="https://polta-gamedev.itch.io/grenade-shot-playtest" target="_blank" rel="noopener">Playtest (itch.io)</a></li>
                 </ul>
               </div>
               <div>
@@ -513,6 +521,6 @@
     <div class="copyright-bar"><div class="wrap copyright">&copy; 2026 POLTA GAMES</div></div>
   </footer>
 
-<script src="main.js?v=20261127"></script>
+<script src="main.js?v=20261127b"></script>
 </body>
 </html>
